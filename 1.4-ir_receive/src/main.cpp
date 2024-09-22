@@ -20,6 +20,8 @@ IRrecv irrecv(IR_RECEIVER_PIN, 1024, 50, true);
 
 void setup()
 {
+  // シリアルコンソールの有効化
+  Serial.begin(115200);
 
   // ボタン
   pinMode(BUTTON_PIN, INPUT_PULLUP);
@@ -51,7 +53,7 @@ void loop()
     led.setPixelColor(0, LED_COLOR_YELLOW);
     led.show();
 
-    printf("Start receive\n");
+    Serial.println("Start receive");
   }
 
   if (ir_receive_mode)
@@ -65,7 +67,7 @@ void loop()
       led.setPixelColor(0, LED_COLOR_BLUE);
       led.show();
 
-      printf("receive failed\n");
+      Serial.println("receive failed");
 
       return;
     }
@@ -78,9 +80,8 @@ void loop()
     }
 
     // 受信、デコード結果をシリアルに出力
-    printf("received:\n");
-    printf(resultToHumanReadableBasic(&results).c_str());
-    printf("\n");
+    Serial.println("received:");
+    Serial.println(resultToHumanReadableBasic(&results).c_str());
 
     // モードを戻す
     ir_receive_mode = false;

@@ -13,6 +13,9 @@ Adafruit_NeoPixel led(1, LED_PIN, NEO_GRB + NEO_KHZ800);
 
 void setup()
 {
+  // シリアルコンソールの有効化
+  Serial.begin(115200);
+
   // LEDの初期化
   led.begin();
 }
@@ -24,12 +27,12 @@ void loop()
   // 色設定
   if (loop_count % 2 == 0)
   {
-    printf("Blue!\n");
+    Serial.println("Blue!");
     led.setPixelColor(0, LED_COLOR_BLUE);
   }
   else
   {
-    printf("Yellow!\n");
+    Serial.println("Yellow!");
     led.setPixelColor(0, LED_COLOR_YELLOW);
   }
   // LEDの表示

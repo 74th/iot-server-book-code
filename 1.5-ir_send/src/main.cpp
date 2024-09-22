@@ -22,6 +22,9 @@ uint64_t sony_tv_power_code = 0xA90;
 
 void setup()
 {
+  // シリアルコンソールの有効化
+  Serial.begin(115200);
+
   // ボタン
   pinMode(BUTTON_PIN, INPUT_PULLUP);
 
@@ -42,14 +45,14 @@ void loop()
   if (button == LOW && latest_button_state == HIGH)
   {
     // ボタン押下検出
-    printf("Start send\n");
+    Serial.println("Start send");
 
     led.setPixelColor(0, LED_COLOR_YELLOW);
     led.show();
 
     irsend.sendSony(sony_tv_power_code, 12, 2);
 
-    printf("Done send\n");
+    Serial.println("Done send");
 
     led.setPixelColor(0, LED_COLOR_BLUE);
     led.show();
