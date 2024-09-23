@@ -118,12 +118,14 @@ void handleIRSendAPI()
   DeserializationError err = deserializeJson(reqDoc, requestBody);
   if (err)
   {
-    // デシリアライズ失敗した場合はエラーを返す
-    String errorMessage = "failed to deserialize Json.";
-    resDoc["error"] = errorMessage;
+    // デシリアライズ失敗した場合のエラー
+    resDoc["error"] = "failed to deserialize Json";
+    resDoc["error_detail"] = err.c_str();
     resDoc["success"] = false;
+
+    // JSONをレスポンス
     serializeJson(resDoc, resBodyBuf, sizeof(resBodyBuf));
-    Serial.println(errorMessage);
+    Serial.println(resBodyBuf);
     server.send(401, "application/json", resBodyBuf);
 
     // 処理終了のLED表示
@@ -136,11 +138,13 @@ void handleIRSendAPI()
   const char *type = reqDoc["type"];
   if (type == NULL || strlen(type) == 0)
   {
-    String errorMessage = "type is required.";
-    resDoc["error"] = errorMessage;
+    // プロパティがないエラー
+    resDoc["error"] = "type is required.";
     resDoc["success"] = false;
+
+    // JSONをレスポンス
     serializeJson(resDoc, resBodyBuf, sizeof(resBodyBuf));
-    Serial.println(errorMessage);
+    Serial.println(resBodyBuf);
     server.send(401, "application/json", resBodyBuf);
 
     // 処理終了のLED表示
@@ -148,7 +152,7 @@ void handleIRSendAPI()
     led.show();
     return;
   }
-  //
+
   // 信号データのプロパティを取得
   const char *hexData = reqDoc["hex"];
   if (hexData == NULL || strlen(hexData) == 0)
@@ -209,10 +213,11 @@ void handleIRSendAPI()
   }
   else
   {
-    // 不明なタイプ
-    String errorMessage = "unknown type";
-    resDoc["error"] = errorMessage;
+    // 不明なタイプのエラーレスポンス
+    resDoc["error"] = "unknown type";
     resDoc["success"] = false;
+
+    // JSONをレスポンス
     serializeJson(resDoc, resBodyBuf, sizeof(resBodyBuf));
     Serial.println(resBodyBuf);
     server.send(401, "application/json", resBodyBuf);
@@ -223,8 +228,10 @@ void handleIRSendAPI()
     return;
   }
 
-  // 成功時の応答
+  // 成功時の応答のレスポンス
   resDoc["success"] = true;
+
+  // JSONをレスポンス
   serializeJson(resDoc, resBodyBuf, sizeof(resBodyBuf));
   Serial.println(resBodyBuf);
   server.send(200, "application/json", resBodyBuf);
@@ -239,6 +246,10 @@ void handleIRReceiveAPI()
 {
   Serial.println("access GET /ir/receive");
 
+  // 処理中を色で表示
+  led.setPixelColor(0, LED_COLOR_YELLOW);
+  led.show();
+
   JsonDocument resDoc;       // レスポンスのJSON
   char resBodyBuf[1024 * 2]; // レスポンスのバッファ
 
@@ -247,10 +258,11 @@ void handleIRReceiveAPI()
   {
     if (millis() > start_time + 10000)
     {
-      // タイムアウト
+      // タイムアウトのエラー
       resDoc["success"] = false;
       resDoc["error"] = "timeout";
 
+      // JSONをレスポンス
       serializeJson(resDoc, resBodyBuf, sizeof(resBodyBuf));
       Serial.println(resBodyBuf);
       server.send(400, "application/json", resBodyBuf);
@@ -278,6 +290,7 @@ void handleIRReceiveAPI()
     resDoc["data"]["hex"] = resultToHexidecimal(&results);
     resDoc["success"] = true;
 
+    // JSONをレスポンス
     serializeJson(resDoc, resBodyBuf, sizeof(resBodyBuf));
     Serial.println(resBodyBuf);
     server.send(400, "application/json", resBodyBuf);
