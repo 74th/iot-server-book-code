@@ -303,7 +303,7 @@ void handleIRReceiveAPI()
     // JSONをレスポンス
     serializeJson(resDoc, resBodyBuf, sizeof(resBodyBuf));
     Serial.println(resBodyBuf);
-    server.send(400, "application/json", resBodyBuf);
+    server.send(200, "application/json", resBodyBuf);
 
     // 処理終了のLED表示
     led.setPixelColor(0, LED_COLOR_BLUE);
