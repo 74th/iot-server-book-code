@@ -10,9 +10,19 @@
 #include <IRutils.h>
 #include <ssid.hpp>
 
+#if defined(M5ATOM_BOARD)
+
 #define LED_PIN GPIO_NUM_27         // LEDピン
 #define IR_SEND_PIN GPIO_NUM_26     // M5 IR赤外線送信ピン(Grove D2)
 #define IR_RECEIVER_PIN GPIO_NUM_32 // 赤外線受信ピン
+
+#elif defined(IOT_SERVER_BOARD)
+
+#define LED_PIN GPIO_NUM_2         // LEDピン
+#define IR_SEND_PIN GPIO_NUM_5     // M5 IR赤外線送信ピン(Grove D2)
+#define IR_RECEIVER_PIN GPIO_NUM_4 // 赤外線受信ピン
+
+#endif
 
 // LEDの色の定義
 #define LED_COLOR_GREEN Adafruit_NeoPixel::Color(0, 32, 0)
