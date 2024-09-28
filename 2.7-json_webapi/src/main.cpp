@@ -241,7 +241,7 @@ void handleIRSendAPI()
   led.show();
 }
 
-// GET /ir/send
+// GET /ir/receive
 void handleIRReceiveAPI()
 {
   Serial.println("access GET /ir/receive");
