@@ -4,12 +4,12 @@
 #if defined(M5ATOM_BOARD)
 
 // LEDピン
-#define LED_PIN GPIO_NUM_2
+#define LED_PIN GPIO_NUM_27
 
 #elif defined(IOT_SERVER_BOARD)
 
 // LEDピン
-#define LED_PIN GPIO_NUM_27
+#define LED_PIN GPIO_NUM_2
 
 #endif
 

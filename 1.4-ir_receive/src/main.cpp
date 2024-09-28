@@ -4,9 +4,20 @@
 #include <IRrecv.h>
 #include <IRutils.h>
 
+#if defined(M5ATOM_BOARD)
+
 #define LED_PIN GPIO_NUM_27         // LEDピン
 #define BUTTON_PIN GPIO_NUM_39      // ボタンピン
 #define IR_RECEIVER_PIN GPIO_NUM_32 // 赤外線受信ピン
+
+#elif defined(IOT_SERVER_BOARD)
+
+// LEDピン
+#define LED_PIN GPIO_NUM_2         // LEDピン
+#define BUTTON_PIN GPIO_NUM_3      // ボタンピン
+#define IR_RECEIVER_PIN GPIO_NUM_4 // 赤外線受信ピン
+
+#endif
 
 // LEDの色の定義
 #define LED_COLOR_BLUE Adafruit_NeoPixel::Color(0, 0, 32)
