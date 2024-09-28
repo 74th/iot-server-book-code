@@ -1,0 +1,26 @@
+[project]
+name = "3-2-stremlit-environment"
+version = "0.1.0"
+description = "Add your description here"
+authors = [
+    { name = "Atsushi Morimoto (74th)", email = "74th.tech@gmail.com" }
+]
+dependencies = [
+    "streamlit>=1.38.0",
+]
+readme = "README.md"
+requires-python = ">= 3.12"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.rye]
+managed = true
+dev-dependencies = []
+
+[tool.hatch.metadata]
+allow-direct-references = true
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/_3_2_stremlit_environment"]
