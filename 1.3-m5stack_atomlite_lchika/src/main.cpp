@@ -1,8 +1,17 @@
 #include <Adafruit_NeoPixel.h>
 #include <Arduino.h>
 
+#if defined(M5ATOM_BOARD)
+
+// LEDピン
+#define LED_PIN GPIO_NUM_2
+
+#elif defined(IOT_SERVER_BOARD)
+
 // LEDピン
 #define LED_PIN GPIO_NUM_27
+
+#endif
 
 // LEDの色の定義
 #define LED_COLOR_BLUE Adafruit_NeoPixel::Color(0, 0, 32)
