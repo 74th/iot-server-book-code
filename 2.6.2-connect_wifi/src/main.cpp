@@ -3,7 +3,15 @@
 #include <WiFi.h>
 #include <ssid.hpp>
 
+#if defined(M5ATOM_BOARD)
+
 #define LED_PIN GPIO_NUM_27 // LEDピン
+
+#elif defined(IOT_SERVER_BOARD)
+
+#define LED_PIN GPIO_NUM_2 // LEDピン
+
+#endif
 
 // LEDの色の定義
 #define LED_COLOR_GREEN Adafruit_NeoPixel::Color(0, 32, 0)

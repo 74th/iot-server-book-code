@@ -3,10 +3,20 @@
 #include <IRremoteESP8266.h>
 #include <IRsend.h>
 
+#if defined(M5ATOM_BOARD)
+
 #define LED_PIN GPIO_NUM_27     // LEDピン
 #define BUTTON_PIN GPIO_NUM_39  // ボタンピン
 #define IR_SEND_PIN GPIO_NUM_26 // M5 IR赤外線送信ピン(Grove D2)
 // #define IR_SEND_PIN GPIO_NUM_12 // Atom内蔵赤外線送信ピン
+
+#elif defined(IOT_SERVER_BOARD)
+
+#define LED_PIN GPIO_NUM_2     // LEDピン
+#define BUTTON_PIN GPIO_NUM_3  // ボタンピン
+#define IR_SEND_PIN GPIO_NUM_5 // M5 IR赤外線送信ピン(Grove D2)
+
+#endif
 
 // LEDの色の定義
 #define LED_COLOR_BLUE Adafruit_NeoPixel::Color(0, 0, 32)

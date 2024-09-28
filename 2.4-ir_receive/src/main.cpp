@@ -12,7 +12,6 @@
 
 #elif defined(IOT_SERVER_BOARD)
 
-// LEDピン
 #define LED_PIN GPIO_NUM_2         // LEDピン
 #define BUTTON_PIN GPIO_NUM_3      // ボタンピン
 #define IR_RECEIVER_PIN GPIO_NUM_4 // 赤外線受信ピン
