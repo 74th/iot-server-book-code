@@ -1,0 +1,30 @@
+[project]
+name = "3-3-streamlit-concept"
+version = "0.1.0"
+description = "Add your description here"
+authors = [
+    { name = "Atsushi Morimoto (74th)", email = "74th.tech@gmail.com" }
+]
+dependencies = [
+    "streamlit>=1.38.0",
+]
+readme = "README.md"
+requires-python = ">= 3.8"
+classifiers = ["Private :: Do Not Upload"]
+
+[project.scripts]
+"3-3-streamlit-concept" = "_3_3_streamlit_concept:main"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.rye]
+managed = true
+dev-dependencies = []
+
+[tool.hatch.metadata]
+allow-direct-references = true
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/_3_3_streamlit_concept"]
