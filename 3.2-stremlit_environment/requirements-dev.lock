@@ -41,6 +41,7 @@ referencing==0.35.1
 requests==2.32.3
 rich==13.8.1
 rpds-py==0.20.0
+ruff==0.6.8
 six==1.16.0
 smmap==5.0.1
 streamlit==1.38.0

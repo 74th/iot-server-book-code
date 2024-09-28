@@ -13,4 +13,6 @@ requires-python = ">= 3.12"
 
 [tool.rye]
 managed = true
-dev-dependencies = []
+dev-dependencies = [
+    "ruff>=0.6.8",
+]
