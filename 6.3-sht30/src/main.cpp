@@ -46,14 +46,6 @@ void setupSHT31(void)
   Wire.endTransmission();
 
   delay(300);
-
-  // ステータスレジスタ消去
-  Wire.beginTransmission(SHT30_I2C_ADDR);
-  Wire.write(0x30);
-  Wire.write(0x41);
-  Wire.endTransmission();
-
-  delay(300);
 }
 
 // GET /
@@ -80,6 +72,7 @@ void handleGetSHT30API(void)
   JsonDocument resDoc;       // レスポンスのJSON
   char resBodyBuf[1024 * 2]; // レスポンスのバッファ
 
+  // One Shot のデータ取得
   Wire.beginTransmission(SHT30_I2C_ADDR);
   Wire.write(0x24);
   Wire.write(0x00);
@@ -98,9 +91,9 @@ void handleGetSHT30API(void)
   int32_t tempRaw, humRaw;
   float_t temp, hum;
   tempRaw = (read_buf[0] << 8) | read_buf[1];   // 上位バイトと下位バイトを結合
-  temp = (float_t)(tempRaw) * 175 / 65535 - 45; // 100倍の値を℃に変換
+  temp = (float_t)(tempRaw) * 175 / 65535 - 45; // ℃に変換
   humRaw = (read_buf[3] << 8) | read_buf[4];    // 上位バイトと下位バイトを結合
-  hum = (float_t)(humRaw) * 100 / 65535 * 100;  // 100倍の値を%に変換
+  hum = (float_t)(humRaw) / 65535 * 100;        // %に変換
 
   resDoc["data"]["temperature"] = temp;
   resDoc["data"]["humidity"] = hum;
