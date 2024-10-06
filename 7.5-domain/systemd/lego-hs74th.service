@@ -1,0 +1,7 @@
+[Unit]
+Description=lego renew
+After=network.target
+
+[Service]
+ExecStart=/etc/lego-hs74th/lego_renew.sh
+WorkingDirectory=/var/lib/lego-hs74th

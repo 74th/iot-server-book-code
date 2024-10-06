@@ -1,0 +1,12 @@
+# /etc/ddns-route53/ddns-route53.yml
+credentials:
+  accessKeyID: "<アクセスキー>"
+  secretAccessKey: "<シークレットアクセスキー>"
+
+route53:
+  hostedZoneID: "<ホストゾーンID>"
+  recordsSet:
+    # グローバルIPを指定するホスト名を記述
+    - name: "streamlit.hs74th.com."
+      type: "A"
+      ttl: 300

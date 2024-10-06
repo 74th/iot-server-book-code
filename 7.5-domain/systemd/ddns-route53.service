@@ -1,0 +1,14 @@
+[Unit]
+# サービス名
+Description=ddns-route53
+After=multi-user.target
+
+[Service]
+Type=simple
+# ddns-route53のコマンド
+ExecStart=ddns-route53 --schedule  "*/30 * * * *"
+ExecStop=/bin/kill ${MAINPID}
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
