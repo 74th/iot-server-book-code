@@ -1,0 +1,19 @@
+[Unit]
+# サービス名
+Description=streamlit
+# dockerの後に起動する
+After=docker.service
+
+[Service]
+Type=simple
+# compose.ymlファイルのあるディレクトリ
+WorkingDirectory=/home/nnyn/ghq/github.com/74th/iot-server-book-code/7.3-container
+# サービス起動時に使われるコマンド
+ExecStart=docker compose up
+# サービス終了時に使われるコマンド
+ExecStop=docker compose down
+# 再起動の設定
+Restart=always
+
+[Install]
+WantedBy=docker.service
