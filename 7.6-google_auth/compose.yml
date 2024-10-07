@@ -1,5 +1,26 @@
 services:
-  app:
+  streamlit:
     build: .
     ports:
+      - "5830:5830"
+    # コマンドを変更して、ポート番号を変更
+    command:
+      - rye
+      - run
+      - streamlit
+      - run
+      - src/app.py
+      - --server.address=0.0.0.0
+      - --server.port=5830
+  # oauth2-proxyを追加
+  oauth2:
+    image: quay.io/oauth2-proxy/oauth2-proxy:v7.6.0-arm64
+    ports:
       - "5831:5831"
+    command:
+      # 設定ファイルを指定
+      - --config=/etc/oauth2-proxy-config/oauth2-proxy.cfg
+      - --authenticated-emails-file=/etc/oauth2-proxy-config/authenticated-emails.txt
+    volumes:
+      # 設定ファイルをマウント
+      - ./oauth2-proxy:/etc/oauth2-proxy-config
