@@ -1,0 +1,18 @@
+[Unit]
+# サービス名
+Description=nginx-hs74th
+After=multi-user.target
+
+[Service]
+Type=simple
+# compose.ymlファイルのあるディレクトリ
+WorkingDirectory=/home/nnyn/ghq/github.com/74th/iot-server-book-code/7.5-domain/nginx
+# サービス起動時に使われるコマンド
+ExecStart=docker compose up
+# サービス終了時に使われるコマンド
+ExecStop=docker compose down
+# 再起動の設定
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
