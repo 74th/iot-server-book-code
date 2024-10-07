@@ -1,0 +1,10 @@
+services:
+  app:
+    image: nginx:1.27
+    ports:
+      - "443:443"
+    volumes:
+      # 設定ファイルをマウント
+      - ./conf/nginx.conf:/etc/nginx/nginx.conf
+      # SSL証明書、鍵のあるディレクトリをマウント
+      - /var/lib/lego-hs74th/.lego/certificates:/var/lib/lego-hs74th/.lego/certificates
