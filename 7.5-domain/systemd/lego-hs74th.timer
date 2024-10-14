@@ -3,7 +3,7 @@ Description=lego renew
 After=network.target
 
 [Timer]
-OnUnitActiveSec=12h
+OnUnitActiveSec=24h
 
 [Install]
 WantedBy=timers.target
