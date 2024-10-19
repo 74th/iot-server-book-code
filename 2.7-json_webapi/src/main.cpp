@@ -36,10 +36,11 @@ Adafruit_NeoPixel led(1, LED_PIN, NEO_GRB + NEO_KHZ800);
 const char *ssid = WIFI_SSID;
 const char *pass = WIFI_PASSWORD;
 
-// 赤外線送信の定義
+// 赤外線送信用オブジェクト
 IRsend irsend(IR_SEND_PIN);
 
-// 赤外線受信の定義
+// 赤外線受信オブジェクト
+// 引数: ピン番号、バッファサイズ、タイムアウト(ms)、デコード時に二次バッファを使うか
 IRrecv irrecv(IR_RECEIVER_PIN, 1024, 50, true);
 
 WebServer server(80);

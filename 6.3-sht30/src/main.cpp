@@ -72,7 +72,7 @@ void handleGetSHT30API(void)
   JsonDocument resDoc;       // レスポンスのJSON
   char resBodyBuf[1024 * 2]; // レスポンスのバッファ
 
-  // One Shot のデータ取得
+  // 計測データ取得コマンドを送る
   Wire.beginTransmission(SHT30_I2C_ADDR);
   Wire.write(0x24);
   Wire.write(0x00);
@@ -80,6 +80,7 @@ void handleGetSHT30API(void)
 
   delay(300);
 
+  // データ取得
   Wire.requestFrom(SHT30_I2C_ADDR, 6);
   uint8_t read_buf[6];
   for (int i = 0; i < 6; i++)
@@ -88,6 +89,7 @@ void handleGetSHT30API(void)
   }
   Wire.endTransmission();
 
+  // 人間が読みやすい値に変換
   int32_t tempRaw, humRaw;
   float_t temp, hum;
   tempRaw = (read_buf[0] << 8) | read_buf[1];   // 上位バイトと下位バイトを結合
@@ -95,17 +97,18 @@ void handleGetSHT30API(void)
   humRaw = (read_buf[3] << 8) | read_buf[4];    // 上位バイトと下位バイトを結合
   hum = (float_t)(humRaw) / 65535 * 100;        // %に変換
 
-  resDoc["data"]["temperature"] = temp;
-  resDoc["data"]["humidity"] = hum;
-  resDoc["data"]["temperature_raw"] = tempRaw;
-  resDoc["data"]["humidity_raw"] = humRaw;
-
   Serial.print("temperature：");
   Serial.print(temp);
   Serial.print(" humidity：");
   Serial.println(hum);
 
   resDoc["success"] = true;
+  resDoc["data"]["temperature"] = temp;
+  // レスポンスデータ
+  resDoc["data"]["humidity"] = hum;
+  resDoc["data"]["temperature_raw"] = tempRaw;
+  resDoc["data"]["humidity_raw"] = humRaw;
+
 
   // JSONをレスポンス
   serializeJson(resDoc, resBodyBuf, sizeof(resBodyBuf));
@@ -130,6 +133,10 @@ void setup()
 
   // I2Cの初期化
   Wire.begin(I2C_SDA_PIN, I2C_SCL_PIN);
+  delay(500);
+
+  // SHT30の初期化
+  setupSHT31();
 
   Serial.print("setup wifi.");
   WiFi.begin(ssid, pass);

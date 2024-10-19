@@ -7,6 +7,7 @@ st.title("TV IR")
 
 
 def send_ir(type: str, hex_code: str):
+    """赤外線の送信"""
     res = httpx.post(
         f"http://{TV_IR_HOST}/ir/send",
         json={
@@ -22,6 +23,7 @@ def send_ir(type: str, hex_code: str):
 
 
 def receive_ir():
+    """赤外線の受信"""
     res = httpx.get(f"http://{TV_IR_HOST}/ir/receive", timeout=15)
     st.json(res.json())
     if res.status_code == 200:

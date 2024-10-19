@@ -25,7 +25,7 @@
 // LEDの定義（数、制御ピン、仕様）
 Adafruit_NeoPixel led(1, LED_PIN, NEO_GRB + NEO_KHZ800);
 
-// 赤外線送信の定義
+// 赤外線送信用オブジェクト
 IRsend irsend(IR_SEND_PIN);
 
 uint64_t sony_tv_power_code = 0xA90;

@@ -25,7 +25,8 @@
 // LEDの定義（数、制御ピン、仕様）
 Adafruit_NeoPixel led(1, LED_PIN, NEO_GRB + NEO_KHZ800);
 
-// 赤外線受信の定義
+// 赤外線受信オブジェクト
+// 引数: ピン番号、バッファサイズ、タイムアウト(ms)、デコード時に二次バッファを使うか
 IRrecv irrecv(IR_RECEIVER_PIN, 1024, 50, true);
 
 void setup()
